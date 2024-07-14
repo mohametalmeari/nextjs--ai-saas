@@ -1,15 +1,29 @@
 import { checkSubscription } from "@/components/subscription";
 import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 import { auth } from "@clerk/nextjs";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const apiKey = process.env.GEMINI_API_KEY || "";
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+});
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 64,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
 
 const instructionMessage: any = {
-  role: "system",
-  content:
-    "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.",
+  role: "user",
+  parts: [
+    {
+      text: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations. If asked for something else, please respond with 'Sorry, I only generate code snippets.' and if asked about your purpose, respond with 'I am a code generator.'",
+    },
+  ],
 };
 
 export async function POST(req: Request) {
@@ -20,10 +34,6 @@ export async function POST(req: Request) {
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    if (!openai.apiKey) {
-      return new NextResponse("OpenAI API Key not configured", { status: 500 });
     }
 
     if (!messages) {
@@ -37,16 +47,24 @@ export async function POST(req: Request) {
       return new NextResponse("Free trial has expired", { status: 403 });
     }
 
-    const res = await openai.chat.completions.create({
-      messages: [instructionMessage, ...messages],
-      model: "gpt-3.5-turbo",
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [instructionMessage].concat(messages.slice(0, -1)),
     });
+
+    const res = await chatSession.sendMessage(
+      messages[messages.length - 1].parts[0].text
+    );
 
     if (!isPro) {
       await increaseApiLimit();
     }
 
-    return NextResponse.json(res.choices[0].message);
+    const responseObj = {
+      role: "model",
+      parts: [{ text: res.response.text() }],
+    };
+    return NextResponse.json(responseObj);
   } catch (error) {
     console.log("[CODE_ERROR]", error);
     return new NextResponse("Internal Server Error", { status: 500 });

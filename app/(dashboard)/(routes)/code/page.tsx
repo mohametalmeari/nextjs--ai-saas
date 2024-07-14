@@ -11,8 +11,6 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
@@ -21,11 +19,14 @@ import { BotAvatar } from "@/components/bot-avatar";
 import Markdown from "react-markdown";
 import { useProModal } from "@/hooks/use-pro-modal";
 import toast from "react-hot-toast";
+import { Content } from "@google/generative-ai";
+import { useHistoryContext } from "@/components/history-context";
 
 const Page = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([]);
+
+  const { codes: messages, setCodes: setMessages } = useHistoryContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,9 +39,9 @@ const Page = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionMessageParam = {
+      const userMessage: Content = {
         role: "user",
-        content: values.prompt,
+        parts: [{ text: values.prompt }],
       };
 
       const newMessages = [...messages, userMessage];
@@ -115,7 +116,7 @@ const Page = () => {
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message: any) => (
               <div
-                key={message.content}
+                key={message.parts[0].text}
                 className={cn(
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
                   message.role === "user"
@@ -127,7 +128,7 @@ const Page = () => {
                 <Markdown
                   components={{
                     pre: ({ node, ...props }) => (
-                      <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                      <div className="overflow-auto w-full my-2 bg-blue-300/10 p-2 rounded-lg">
                         <pre {...props} />
                       </div>
                     ),
@@ -135,9 +136,9 @@ const Page = () => {
                       <code className="bg-black/10 rounded-lg p-1" {...props} />
                     ),
                   }}
-                  className="text-sm overflow-hidden leading-7"
+                  className="text-sm overflow-hidden leading-7 w-full"
                 >
-                  {message.content}
+                  {message.parts[0].text}
                 </Markdown>
               </div>
             ))}
