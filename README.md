@@ -1,4 +1,3 @@
-
 <a name="readme-top"></a>
 
 <div align="center">
@@ -19,6 +18,7 @@
     - [Key Features](#key-features)
   - [🚀 Live Demo](#live-demo)
 - [💻 Getting Started](#getting-started)
+
   - [Prerequisites](#prerequisites)
   - [Setup](#setup)
   - [Install](#install)
@@ -38,7 +38,7 @@
 
 # 📖 Genius AI <a name="about-project"></a>
 
-**Genius AI** is a next-generation AI tool application that utilizes the power of the ChatGPT API and Replicate API. Users can easily generate multiple types of content, including text, code, images, music, and video, by simply providing text prompts.
+**Genius AI** is a next-generation AI tool application that utilizes the power of the GoogleAI API and Replicate API. Users can easily generate multiple types of content, including text, code, images, music, and video, by simply providing text prompts.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -54,27 +54,26 @@
 <details>
   <summary>Server</summary>
     <ul>
-      <li><a href="https://reactjs.org/">React.js</a></li><li><a href="https://nextjs.org/">Next.js</a></li><li><a href="https://stripe.com/">Stripe</a></li><li><a href="https://openai.com/">OpenAI</a></li><li><a href="https://replicate.com/">Replicate</a></li><li><a href="https://clerk.com/">Clerk</a></li>
+      <li><a href="https://reactjs.org/">React.js</a></li><li><a href="https://nextjs.org/">Next.js</a></li><li><a href="https://stripe.com/">Stripe</a></li><li><a href="https://aistudio.google.com/">GoogleAI</a></li><li><a href="https://replicate.com/">Replicate</a></li><li><a href="https://clerk.com/">Clerk</a></li>
     </ul>
 </details>
 
 <details>
   <summary>Database</summary>
     <ul>
-      <li><a href="https://www.mysql.com/">MySQL</a></li><li><a href="https://www.prisma.io/">Prisma</a></li><li><a href="https://app.planetscale.com/">PlanetScale</a></li>
+      <li><a href="https://www.postgresql.org/">PostgreSQL</a></li><li><a href="https://www.prisma.io/">Prisma</a></li><li><a href="https://neon.tech/">Neon</a></li>
     </ul>
 </details>
-
 
 <!-- Features -->
 
 ### Key Features <a name="key-features"></a>
+
 - **Generate text**
 - **Generate code**
 - **Generate images**
 - **Generate video**
 - **Generate music**
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -92,29 +91,35 @@
 
 To get a local copy up and running, follow these steps.
 
-
 ### Prerequisites
+
 In order to run this project you need: Node.js
 
-
 ### Setup
+
 Clone this repository to your desired folder:
+
 ```sh
 cd my-folder
 git clone https://github.com/mohametalmeari/ai-saas.git
 ```
 
 ### Install
+
 Install this project with:
+
 ```sh
 npm install
 ```
 
 ### Usage
+
 To run the project, execute the following command:
+
 ```sh
 npm run dev
 ```
+
 <!--
 ### Run tests
 To run tests, run the following command:
@@ -122,10 +127,10 @@ To run tests, run the following command:
 npm test
 ```
 -->
+
 ### Deployment
+
 You can deploy this project on vercel.app
-
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -134,14 +139,9 @@ You can deploy this project on vercel.app
 ## 👥 Authors <a name="authors"></a>
 
 👤 **Mohamad**
+
 - GitHub: [@mohametalmeari](https://github.com/mohametalmeari)
 - LinkedIn: [@mohametalmeari](https://www.linkedin.com/in/mohamet-almeari/)
-
-👤 **Mohamad**
-- GitHub: [@mohametalmeari](https://github.com/mohametalmeari)
-- LinkedIn: [@mohametalmeari](https://www.linkedin.com/in/mohamet-almeari/)
-
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -150,7 +150,6 @@ You can deploy this project on vercel.app
 ## 🔭 Future Features <a name="future-features"></a>
 
 - **Create Unit Tests**
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -180,19 +179,16 @@ The idea and the design of this project were originally created by [Antonio](htt
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 <!-- FAQ (optional) -->
 
 ## ❓ FAQ <a name="faq"></a>
 
 - **What is the license of this project?**
   - This project is licensed under the MIT license.
-  
 - **How can I contribute to this project?**
   - You can fork this repository and submit a pull request.
-  
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 
@@ -201,4 +197,3 @@ The idea and the design of this project were originally created by [Antonio](htt
 This project is [MIT](./LICENSE) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-

@@ -21,6 +21,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 import toast from "react-hot-toast";
 import { Content } from "@google/generative-ai";
 import { useHistoryContext } from "@/components/history-context";
+import Markdown from "react-markdown";
 
 const Page = () => {
   const proModal = useProModal();
@@ -126,7 +127,9 @@ const Page = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.parts[0].text}</p>
+                <Markdown className="text-sm overflow-hidden leading-7 w-full">
+                  {message.parts[0].text}
+                </Markdown>
               </div>
             ))}
           </div>
