@@ -20,11 +20,14 @@ import { BotAvatar } from "@/components/bot-avatar";
 import { useProModal } from "@/hooks/use-pro-modal";
 import toast from "react-hot-toast";
 import { Content } from "@google/generative-ai";
+import { useHistoryContext } from "@/components/history-context";
 
 const Page = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<Content[]>([]);
+
+  const { conversations: messages, setConversations: setMessages } =
+    useHistoryContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,7 +51,7 @@ const Page = () => {
         messages: newMessages,
       });
 
-      setMessages((current) => [...current, userMessage, res.data]);
+      setMessages((current: Content[]) => [...current, userMessage, res.data]);
 
       form.reset();
     } catch (error: any) {

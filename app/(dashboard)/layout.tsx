@@ -1,3 +1,4 @@
+import { HistoryContextProvider } from "@/components/history-context";
 import { Navbar } from "@/components/navbar";
 import { Sidebar } from "@/components/sidebar";
 import { checkSubscription } from "@/components/subscription";
@@ -14,7 +15,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       </div>
       <main className="md:pl-72">
         <Navbar />
-        {children}
+        <HistoryContextProvider>{children}</HistoryContextProvider>
       </main>
     </div>
   );

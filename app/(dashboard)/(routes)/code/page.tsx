@@ -11,7 +11,6 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
@@ -21,11 +20,13 @@ import Markdown from "react-markdown";
 import { useProModal } from "@/hooks/use-pro-modal";
 import toast from "react-hot-toast";
 import { Content } from "@google/generative-ai";
+import { useHistoryContext } from "@/components/history-context";
 
 const Page = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<Content[]>([]);
+
+  const { codes: messages, setCodes: setMessages } = useHistoryContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
